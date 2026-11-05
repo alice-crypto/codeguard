@@ -5,6 +5,12 @@
   "type": "module",
   "description": "Interface React de codeguard.",
   "license": "UNLICENSED",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc"
+  },
   "dependencies": {
     "react": "19.3.1",
     "react-dom": "19.3.1"
