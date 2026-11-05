@@ -11,7 +11,6 @@ export function ResultMark({ success, label, size = 44 }: ResultMarkProps) {
   const ref = useFx<HTMLSpanElement>();
   return (
     <span
-      key={String(success)}
       ref={ref}
       data-fx={success ? "check-draw" : "cross-draw"}
       aria-label={label}
