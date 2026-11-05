@@ -2,6 +2,7 @@
 
 import json
 import sys
+from datetime import datetime
 
 import pytest
 
@@ -270,6 +271,22 @@ def test_clean_commits_on_a_branch_and_leaves_the_tree_alone(fake_api, repo):
     assert run_git(repo, "rev-parse", "HEAD").strip() == head
     assert "import os" not in run_git(repo, "show", f"{report.branch}:app.py")
     assert "codeguard" not in run_git(repo, "worktree", "list")
+
+
+def test_two_cleanups_in_the_same_second_get_their_own_branch(fake_api, repo, monkeypatch):
+    class FrozenClock(datetime):
+        @classmethod
+        def now(cls, tz=None):
+            return datetime(2026, 1, 1, tzinfo=tz)
+
+    monkeypatch.setattr("codeguard.clean.datetime", FrozenClock)
+    branches = set()
+    for _ in range(2):
+        fake_api.replies = [REMOVE_IMPORT, final(CLEAN_OK)]
+        report = run_clean(fake_api.client(), repo, clean_request(repo), Config(), SETTINGS, print)
+        assert report.status == "committed"
+        branches.add(report.branch)
+    assert len(branches) == 2
 
 
 def test_clean_cannot_touch_files_outside_scope(fake_api, repo):

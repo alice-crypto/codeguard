@@ -6,6 +6,7 @@ branche dédiée, et les vérifications sont rejouées ici, indépendamment de c
 
 from __future__ import annotations
 
+import secrets
 import shutil
 import tempfile
 from dataclasses import dataclass, field
@@ -72,7 +73,8 @@ def run_clean(
         return CleanReport(target=request.target, status="no_change", summary="Aucun fichier.")
 
     stamp = datetime.now(UTC).strftime("%Y%m%d-%H%M%S")
-    branch = f"codeguard/clean-{stamp}"
+    # The suffix keeps two cleanups started within the same second from colliding.
+    branch = f"codeguard/clean-{stamp}-{secrets.token_hex(3)}"
     temp_dir = Path(tempfile.mkdtemp(prefix="codeguard-"))
     worktree = temp_dir / "worktree"
     gitops.add_worktree(root, worktree, branch, request.start)
