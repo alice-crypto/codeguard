@@ -1,0 +1,32 @@
+.banner {
+  --banner: var(--ink-soft);
+  display: flex;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid color-mix(in srgb, var(--banner) 28%, var(--line));
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--banner) 7%, var(--surface));
+  overflow-wrap: anywhere;
+}
+
+.banner > svg {
+  flex: none;
+  margin-top: 2px;
+  color: var(--banner);
+}
+
+.banner__title {
+  font-weight: 600;
+}
+
+.banner--error {
+  --banner: var(--critical);
+}
+
+.banner--warning {
+  --banner: var(--medium);
+}
+
+.banner--success {
+  --banner: var(--ok);
+}
