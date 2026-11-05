@@ -30,6 +30,8 @@ La commande ouvre l'interface dans ton navigateur (`--port` pour choisir le port
 pour seulement afficher le lien). Elle fait la même chose que la CLI :
 
 - ouvrir un dépôt, voir sa branche et ses changements, puis lancer une review ou un nettoyage ;
+- lire les résultats dans des couleurs calmes, en thème clair ou sombre, avec la taille de
+  texte de ton choix ;
 - suivre l'activité de l'agent en direct et l'arrêter ;
 - lire et filtrer les remarques, copier les suggestions, exporter en Markdown, JSON ou SARIF ;
 - relire le diff d'un nettoyage, puis le pousser, ouvrir une PR ou l'abandonner.
@@ -162,7 +164,8 @@ pytest
 ruff check .
 ```
 
-Pour essayer l'interface sans clé ni réseau, avec un dépôt d'exemple et de faux services :
+L'interface est écrite en React : son code et son guide sont dans [frontend](frontend/README.md).
+Pour l'essayer sans clé ni réseau, avec un dépôt d'exemple et de faux services :
 
 ```bash
 python tests/demo_ui.py
