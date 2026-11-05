@@ -1,0 +1,20 @@
+.disclosure {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+}
+
+.disclosure summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.disclosure__body {
+  padding: 0 var(--space-4) var(--space-4);
+}
