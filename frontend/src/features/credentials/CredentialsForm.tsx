@@ -16,6 +16,7 @@ export function CredentialsForm() {
   const [anthropic, setAnthropic] = useState("");
   const [github, setGithub] = useState("");
   const credentials = status.data?.credentials;
+  const hasSessionKey = credentials?.anthropic === "session" || credentials?.github === "session";
 
   function submit(event: FormEvent) {
     event.preventDefault();
@@ -67,6 +68,19 @@ export function CredentialsForm() {
         <Button type="submit" variant="primary" disabled={save.isPending || (!anthropic && !github)}>
           Enregistrer
         </Button>
+        {hasSessionKey && (
+          <Button
+            variant="quiet"
+            onClick={() =>
+              save.mutate(
+                { anthropic_key: "", github_token: "" },
+                { onSuccess: () => notify("Clés de session oubliées") },
+              )
+            }
+          >
+            Oublier les clés de session
+          </Button>
+        )}
       </div>
     </form>
   );
