@@ -1,0 +1,8 @@
+{
+  "name": "codeguard-frontend",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Interface React de codeguard.",
+  "license": "UNLICENSED"
+}
