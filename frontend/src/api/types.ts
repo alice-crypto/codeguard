@@ -57,5 +57,18 @@ export interface CleanRequest extends RunOptions {
   dry_run: boolean;
 }
 
+export type JobKind = "review" | "clean";
+export type JobStatus = "running" | "done" | "failed" | "cancelled";
+
+export interface JobSummary {
+  id: string;
+  kind: JobKind;
+  label: string;
+  status: JobStatus;
+  created: number;
+  finished: number | null;
+  cancel_requested: boolean;
+}
+
 export type Effort = "low" | "medium" | "high" | "xhigh" | "max";
 export type Severity = "critical" | "high" | "medium" | "low" | "info";
