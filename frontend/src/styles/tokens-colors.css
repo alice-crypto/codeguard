@@ -1,0 +1,15 @@
+:root {
+  color-scheme: light dark;
+  --bg: light-dark(#f4f2ea, #131917);
+  --surface: light-dark(#fbfaf5, #1a2220);
+  --surface-2: light-dark(#efece1, #222c29);
+  --line: light-dark(#dfdbcd, #2f3b37);
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
