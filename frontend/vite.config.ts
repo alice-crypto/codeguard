@@ -6,6 +6,11 @@ const sessionToken = process.env.CODEGUARD_TOKEN ?? "";
 
 export default defineConfig({
   plugins: [react()],
+  build: {
+    outDir: "../src/codeguard/ui/static",
+    emptyOutDir: true,
+    assetsInlineLimit: 0,
+  },
   server: {
     proxy: {
       "/api": {
