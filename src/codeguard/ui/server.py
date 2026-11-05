@@ -40,10 +40,12 @@ from codeguard.ui.jobs import Job, JobBusy, JobManager
 DEFAULT_PORT = 8765
 MAX_BODY_BYTES = 1_000_000
 STATIC_DIR = Path(__file__).parent / "static"
-STATIC_FILES = {
-    "/": ("index.html", "text/html; charset=utf-8"),
-    "/app.js": ("app.js", "text/javascript; charset=utf-8"),
-    "/style.css": ("style.css", "text/css; charset=utf-8"),
+CONTENT_TYPES = {
+    ".html": "text/html; charset=utf-8",
+    ".js": "text/javascript; charset=utf-8",
+    ".css": "text/css; charset=utf-8",
+    ".woff2": "font/woff2",
+    ".woff": "font/woff",
 }
 SECURITY_HEADERS = {
     "Content-Security-Policy": (
@@ -91,6 +93,18 @@ class SessionSecrets:
             "anthropic": "session" if self.anthropic_key else "env" if env_anthropic else None,
             "github": "session" if self.github_token else "env" if env_github else None,
         }
+
+
+def static_index(directory: Path = STATIC_DIR) -> dict[str, tuple[Path, str]]:
+    """Map each served URL to its file: anything absent from this table simply does not exist."""
+    index = {}
+    for file in directory.rglob("*"):
+        content_type = CONTENT_TYPES.get(file.suffix)
+        if file.is_file() and content_type:
+            index["/" + file.relative_to(directory).as_posix()] = (file, content_type)
+    if "/index.html" in index:
+        index["/"] = index["/index.html"]
+    return index
 
 
 def _text(body: dict, key: str) -> str | None:
@@ -188,6 +202,7 @@ class UiServer(ThreadingHTTPServer):
         self.token = token or secrets.token_urlsafe(32)
         self.secrets = SessionSecrets()
         self.jobs = JobManager()
+        self.static_files = static_index()
         self.bound_port = self.server_address[1]
         self.allowed_hosts = {f"127.0.0.1:{self.bound_port}", f"localhost:{self.bound_port}"}
         self.cookie_name = f"codeguard_{self.bound_port}"
@@ -288,9 +303,9 @@ class _Handler(BaseHTTPRequestHandler):
             return self._send(
                 HTTPStatus.UNAUTHORIZED, _NOT_AUTHENTICATED.encode(), "text/html; charset=utf-8"
             )
-        if url.path in STATIC_FILES:
-            name, content_type = STATIC_FILES[url.path]
-            return self._send(HTTPStatus.OK, (STATIC_DIR / name).read_bytes(), content_type)
+        if url.path in self.server.static_files:
+            file, content_type = self.server.static_files[url.path]
+            return self._send(HTTPStatus.OK, file.read_bytes(), content_type)
         self._guarded(lambda: self._route_get(url.path, parse_qs(url.query)))
         return None
 
