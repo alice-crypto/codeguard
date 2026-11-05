@@ -153,5 +153,29 @@ export interface CleanResult {
   estimated_cost_usd: number | null;
 }
 
+interface JobDetailBase extends JobSummary {
+  error: string | null;
+  logs: string[];
+  log_count: number;
+}
+
+export interface ReviewJobDetail extends JobDetailBase {
+  kind: "review";
+  result: ReviewResult | null;
+  can_post?: boolean;
+  repo?: string | null;
+}
+
+export interface CleanJobDetail extends JobDetailBase {
+  kind: "clean";
+  result: CleanResult | null;
+  pushed?: boolean;
+  pull_request_url?: string | null;
+  discarded?: boolean;
+  github_repo?: string | null;
+}
+
+export type JobDetail = ReviewJobDetail | CleanJobDetail;
+
 export type Effort = "low" | "medium" | "high" | "xhigh" | "max";
 export type Severity = "critical" | "high" | "medium" | "low" | "info";
