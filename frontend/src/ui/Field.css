@@ -1,0 +1,22 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.field__label {
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+
+.field__hint {
+  color: var(--ink-soft);
+  font-size: var(--text-xs);
+}
+
+.field__error {
+  color: var(--critical);
+  font-size: var(--text-sm);
+  overflow-wrap: anywhere;
+}
