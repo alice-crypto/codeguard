@@ -1,0 +1,37 @@
+.home-actions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space-4);
+}
+
+.home-action {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-5);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  color: var(--ink);
+  text-decoration: none;
+  transition: border-color var(--duration-fast) var(--ease);
+}
+
+.home-action:hover {
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+}
+
+.home-action > svg {
+  color: var(--accent);
+}
+
+.home-action__title {
+  font-family: var(--font-read);
+  font-size: var(--title-sm);
+  font-weight: 500;
+}
+
+.home-action__text {
+  color: var(--ink-soft);
+  font-size: var(--text-sm);
+}
