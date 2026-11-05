@@ -10,6 +10,12 @@
   --accent-strong: light-dark(#235347, #a3dac8);
   --accent-soft: light-dark(#dce9e3, #21362f);
   --on-accent: light-dark(#f9f8f2, #10201b);
+  --critical: light-dark(#a23b32, #ee9a8f);
+  --high: light-dark(#a9571c, #e8a76b);
+  --medium: light-dark(#806210, #dbbf6b);
+  --low: light-dark(#3a6a8c, #8fbedd);
+  --info: light-dark(#56645e, #a9b2ab);
+  --ok: light-dark(#2e7d56, #7ccba0);
 }
 
 :root[data-theme="light"] {
