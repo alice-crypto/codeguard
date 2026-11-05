@@ -11,7 +11,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
     (message) => {
       const element = region.current;
       if (!element) return;
-      element.dataset.fxMessage = message;
+      element.setAttribute("data-fx-message", message);
       window.FX?.trigger(element);
     },
     [region],
