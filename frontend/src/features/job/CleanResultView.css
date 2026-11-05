@@ -1,0 +1,34 @@
+.clean-result,
+.clean-result__section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  min-width: 0;
+}
+
+.clean-result {
+  gap: var(--space-5);
+}
+
+.clean-result__status {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.clean-result__title {
+  font-family: var(--font-read);
+  font-size: var(--title-sm);
+  font-weight: 500;
+}
+
+.clean-result__output {
+  max-height: 320px;
+  overflow: auto;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--surface-2);
+  font: 400 var(--text-sm) / 1.6 var(--font-code);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
