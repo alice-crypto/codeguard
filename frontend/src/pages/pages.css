@@ -4,6 +4,12 @@
   gap: var(--space-6);
 }
 
+.home-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: var(--space-4);
+}
+
 .settings-version {
   color: var(--ink-soft);
   font-size: var(--text-xs);
