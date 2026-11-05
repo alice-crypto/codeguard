@@ -1,0 +1,26 @@
+:root {
+  --fx-accent: var(--accent);
+  --fx-accent-2: var(--accent-strong);
+  --fx-ink: var(--ink);
+  --fx-duration: 560ms;
+  --fx-distance: 12px;
+  --fx-stagger: 50ms;
+  --fx-pill: var(--accent-soft);
+  --fx-indicator: var(--surface);
+  --fx-indicator-ink: var(--ink);
+  --fx-indicator-radius: 9px;
+  --fx-glow: color-mix(in srgb, var(--accent) 16%, transparent);
+  --fx-ok: var(--ok);
+  --fx-ko: var(--critical);
+  --fx-bar: var(--accent);
+  --fx-track: var(--surface-2);
+  --fx-shimmer-base: var(--surface-2);
+  --fx-toast-bg: var(--ink);
+  --fx-toast-ink: var(--bg);
+  --fx-o1: var(--accent);
+  --fx-o2: var(--accent-strong);
+  --fx-o3: light-dark(#8fb8a8, #3f7d6c);
+  --fx-a1: color-mix(in srgb, var(--accent) 22%, transparent);
+  --fx-a2: light-dark(rgb(196 170 120 / 0.2), rgb(120 150 110 / 0.14));
+  --fx-a3: light-dark(rgb(150 190 180 / 0.24), rgb(70 120 120 / 0.16));
+}
