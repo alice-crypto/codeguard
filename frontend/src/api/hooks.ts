@@ -1,5 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { api } from "./endpoints";
+import type { ServerStatus } from "./types";
 
 export const queryKeys = {
   status: ["status"] as const,
@@ -11,6 +12,18 @@ const POLL_MS = 800;
 
 export function useServerStatus() {
   return useQuery({ queryKey: queryKeys.status, queryFn: api.status });
+}
+
+export function useSaveSecrets() {
+  const client = useQueryClient();
+  return useMutation({
+    mutationFn: api.saveSecrets,
+    onSuccess: (credentials) => {
+      client.setQueryData<ServerStatus>(queryKeys.status, (status) =>
+        status ? { ...status, credentials } : status,
+      );
+    },
+  });
 }
 
 export function useJobs() {
