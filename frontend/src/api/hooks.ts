@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { api } from "./endpoints";
-import type { ServerStatus } from "./types";
+import type { JobDetail, ServerStatus } from "./types";
 
 export const queryKeys = {
   status: ["status"] as const,
@@ -48,6 +48,25 @@ export function useStartClean() {
   return useMutation({
     mutationFn: api.startClean,
     onSuccess: () => client.invalidateQueries({ queryKey: queryKeys.jobs }),
+  });
+}
+
+export function useJobAction<Input = void>(
+  id: string,
+  action: (input: Input) => Promise<JobDetail>,
+) {
+  const client = useQueryClient();
+  return useMutation({
+    mutationFn: action,
+    onSuccess: (detail) => client.setQueryData(queryKeys.job(id), detail),
+  });
+}
+
+export function useCancelJob(id: string) {
+  const client = useQueryClient();
+  return useMutation({
+    mutationFn: () => api.cancelJob(id),
+    onSuccess: () => client.invalidateQueries({ queryKey: queryKeys.job(id) }),
   });
 }
 
