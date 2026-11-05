@@ -111,5 +111,47 @@ export interface ReviewResult {
   estimated_cost_usd: number | null;
 }
 
+export type CleanStatus =
+  | "committed"
+  | "dry_run"
+  | "no_change"
+  | "checks_failed"
+  | "baseline_failed";
+
+export type CleanChangeKind =
+  | "dead_code"
+  | "duplication"
+  | "simplification"
+  | "naming"
+  | "comments"
+  | "imports"
+  | "other";
+
+export interface CleanChange {
+  path: string;
+  kind: CleanChangeKind;
+  description: string;
+}
+
+export interface CleanResult {
+  target: string;
+  status: CleanStatus;
+  status_label: string;
+  summary: string;
+  partial: boolean;
+  changes: CleanChange[];
+  left_alone: string[];
+  out_of_scope: string[];
+  branch: string | null;
+  commit: string | null;
+  worktree: string | null;
+  diff: string;
+  checks_ran: boolean;
+  checks_output: string;
+  model: string;
+  usage: Usage;
+  estimated_cost_usd: number | null;
+}
+
 export type Effort = "low" | "medium" | "high" | "xhigh" | "max";
 export type Severity = "critical" | "high" | "medium" | "low" | "info";
