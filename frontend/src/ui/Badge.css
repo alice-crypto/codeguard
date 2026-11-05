@@ -1,0 +1,41 @@
+.badge {
+  --badge: var(--ink-soft);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 1px var(--space-2);
+  border-radius: var(--radius-full);
+  background: color-mix(in srgb, var(--badge) 12%, transparent);
+  color: var(--badge);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.badge--ok {
+  --badge: var(--ok);
+}
+
+.badge--accent {
+  --badge: var(--accent);
+}
+
+.badge--critical {
+  --badge: var(--critical);
+}
+
+.badge--high {
+  --badge: var(--high);
+}
+
+.badge--medium {
+  --badge: var(--medium);
+}
+
+.badge--low {
+  --badge: var(--low);
+}
+
+.badge--info {
+  --badge: var(--info);
+}
