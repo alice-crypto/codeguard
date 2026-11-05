@@ -35,6 +35,22 @@ export function useJobs() {
   });
 }
 
+export function useStartReview() {
+  const client = useQueryClient();
+  return useMutation({
+    mutationFn: api.startReview,
+    onSuccess: () => client.invalidateQueries({ queryKey: queryKeys.jobs }),
+  });
+}
+
+export function useStartClean() {
+  const client = useQueryClient();
+  return useMutation({
+    mutationFn: api.startClean,
+    onSuccess: () => client.invalidateQueries({ queryKey: queryKeys.jobs }),
+  });
+}
+
 export function useJob(id: string) {
   return useQuery({
     queryKey: queryKeys.job(id),
