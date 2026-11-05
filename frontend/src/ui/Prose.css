@@ -1,0 +1,8 @@
+.prose {
+  max-width: var(--measure);
+  font-family: var(--font-read);
+  font-size: var(--reading-size, var(--text-read));
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
