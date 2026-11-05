@@ -1,0 +1,18 @@
+.code {
+  position: relative;
+}
+
+.code pre {
+  padding: var(--space-3) var(--space-4);
+  padding-right: 6.5rem;
+  overflow-x: auto;
+  border-radius: var(--radius-md);
+  background: var(--surface-2);
+  font: 400 var(--text-sm) / 1.6 var(--font-code);
+}
+
+.code .button {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+}
