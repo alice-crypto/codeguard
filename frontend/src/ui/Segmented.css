@@ -1,0 +1,31 @@
+.segmented {
+  position: relative;
+  display: inline-flex;
+  padding: 3px;
+  border-radius: var(--radius-md);
+  background: var(--surface-2);
+}
+
+.segmented button {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 34px;
+  padding: var(--space-1) var(--space-4);
+  border: 0;
+  border-radius: 9px;
+  background: none;
+  color: var(--ink-soft);
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.segmented button[aria-selected="true"] {
+  color: var(--ink);
+}
+
+.segmented .fx-indicator {
+  box-shadow: var(--shadow-sm);
+}
