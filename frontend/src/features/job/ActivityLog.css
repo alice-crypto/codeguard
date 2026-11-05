@@ -1,0 +1,8 @@
+.activity-log {
+  max-height: 280px;
+  overflow: auto;
+  color: var(--ink-soft);
+  font: 400 var(--text-xs) / 1.7 var(--font-code);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
