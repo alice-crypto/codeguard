@@ -1,0 +1,49 @@
+.finding {
+  --edge: var(--info);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  min-width: 0;
+  padding: var(--space-5);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--edge);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+}
+
+.finding--critical {
+  --edge: var(--critical);
+}
+
+.finding--high {
+  --edge: var(--high);
+}
+
+.finding--medium {
+  --edge: var(--medium);
+}
+
+.finding--low {
+  --edge: var(--low);
+}
+
+.finding__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.finding__location {
+  color: var(--ink-soft);
+  font: 400 var(--text-xs) / 1.4 var(--font-code);
+  overflow-wrap: anywhere;
+}
+
+.finding__title {
+  font-family: var(--font-read);
+  font-size: var(--title-sm);
+  font-weight: 500;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
