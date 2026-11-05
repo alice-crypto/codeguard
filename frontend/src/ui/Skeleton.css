@@ -1,0 +1,19 @@
+.skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.skeleton__line {
+  height: 14px;
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+}
+
+.skeleton__line:nth-child(3n) {
+  width: 62%;
+}
+
+.skeleton__line:nth-child(3n + 2) {
+  width: 84%;
+}
