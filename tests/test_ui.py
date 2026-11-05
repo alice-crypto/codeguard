@@ -112,7 +112,7 @@ def test_listens_only_on_loopback(server):
     assert server.server_address[0] == "127.0.0.1"
 
 
-@pytest.mark.parametrize("path", ["/", "/app.js", "/api/status", "/api/jobs"])
+@pytest.mark.parametrize("path", ["/", "/vendor/ideotheque/fx.js", "/api/status", "/api/jobs"])
 def test_everything_requires_a_session(server, path):
     response, _ = Client(server, cookie=False).request("GET", path)
     assert response.status == 401
@@ -178,9 +178,16 @@ def test_static_files_cannot_be_escaped(client):
         assert response.status == 404
 
 
+FRONTEND_SOURCE = Path(__file__).parents[1] / "frontend" / "src"
+
+
 def test_frontend_never_builds_html_from_strings():
-    script = (STATIC_DIR / "app.js").read_text("utf-8")
-    assert not re.search(r"innerHTML|outerHTML|insertAdjacentHTML|document\.write|eval\(", script)
+    forbidden = re.compile(
+        r"dangerouslySetInnerHTML|innerHTML|outerHTML|insertAdjacentHTML|document\.write|eval\("
+    )
+    for file in [*FRONTEND_SOURCE.rglob("*.ts"), *FRONTEND_SOURCE.rglob("*.tsx")]:
+        if ".test." not in file.name:
+            assert not forbidden.search(file.read_text("utf-8")), file
     page = (STATIC_DIR / "index.html").read_text("utf-8")
     assert not re.search(r"<script(?![^>]*\bsrc=)", page), "pas de script en ligne"
     assert not re.search(r"\son\w+=", page), "pas de gestionnaire en ligne"
@@ -441,18 +448,10 @@ def test_unknown_routes_and_jobs(client):
     assert client.get("/api/inconnu")[0] == 404
 
 
-def test_frontend_does_not_shadow_browser_globals():
-    # A top-level `function location()` is a SyntaxError that stops the whole script.
-    script = (STATIC_DIR / "app.js").read_text("utf-8")
-    declared = re.findall(r"^(?:async )?(?:function|const|let|class) (\w+)", script, re.MULTILINE)
-    reserved = {"location", "document", "window", "top", "parent", "self", "history", "origin"}
-    assert declared and not reserved & set(declared)
-
-
 def test_budget_field_accepts_any_amount():
     # With min=0.1 and step=0.5, the browser rejected the default of 5 and blocked the form.
-    page = (STATIC_DIR / "index.html").read_text("utf-8")
-    assert re.search(r'id="input-cost"[^>]*step="any"', page)
+    source = (FRONTEND_SOURCE / "features" / "analysis" / "RunSettings.tsx").read_text("utf-8")
+    assert 'step="any"' in source
 
 
 def test_ui_command_starts_and_prints_a_working_link(tmp_path):
@@ -477,5 +476,34 @@ def test_ui_command_starts_and_prints_a_working_link(tmp_path):
 
 
 def test_static_assets_are_packaged():
-    for name in ("index.html", "app.js", "style.css"):
-        assert (Path(STATIC_DIR) / name).is_file()
+    assert (STATIC_DIR / "index.html").is_file()
+    assert (STATIC_DIR / "vendor" / "ideotheque" / "fx.js").is_file()
+    assert (STATIC_DIR / "vendor" / "ideotheque" / "LICENSE").is_file()
+    assert list((STATIC_DIR / "assets").glob("*.js"))
+    assert list((STATIC_DIR / "assets").glob("*.css"))
+    assert list((STATIC_DIR / "assets").glob("*.woff2"))
+
+
+def test_built_page_loads_only_local_files(client):
+    response, payload = client.request("GET", "/")
+    assert response.status == 200
+    page = payload.decode("utf-8")
+    assets = re.findall(r'(?:src|href)="(/[^"]+)"', page)
+    assert assets
+    for asset in assets:
+        served, _ = client.request("GET", asset)
+        assert served.status == 200, asset
+
+
+def test_fonts_are_allowed_and_served(client):
+    response, _ = client.request("GET", "/")
+    assert "font-src 'self'" in response.getheader("Content-Security-Policy")
+    font = next((STATIC_DIR / "assets").glob("*.woff2"))
+    served, _ = client.request("GET", f"/assets/{font.name}")
+    assert served.status == 200
+    assert served.getheader("Content-Type") == "font/woff2"
+
+
+def test_unknown_static_path_is_not_found(client):
+    response, _ = client.request("GET", "/assets/inexistant.js")
+    assert response.status == 404

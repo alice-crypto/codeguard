@@ -1,145 +1,17 @@
 <!doctype html>
 <html lang="fr">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>codeguard</title>
-  <link rel="icon" href="data:,">
-  <link rel="stylesheet" href="/style.css">
-  <script src="/app.js" defer></script>
-</head>
-<body>
-  <header class="topbar">
-    <div class="brand"><span class="brand-mark" aria-hidden="true"></span>codeguard</div>
-    <button type="button" class="credentials" id="credentials-open" aria-haspopup="dialog">
-      <span class="credential"><span class="dot" id="dot-anthropic"></span>Claude</span>
-      <span class="credential"><span class="dot" id="dot-github"></span>GitHub</span>
-    </button>
-  </header>
-
-  <div class="layout">
-    <aside class="side">
-      <section class="panel">
-        <h2>Projet</h2>
-        <form id="project-form" class="inline-form">
-          <label class="sr-only" for="project-path">Dossier du dépôt git</label>
-          <input id="project-path" class="mono" list="project-recent" autocomplete="off"
-                 spellcheck="false" placeholder="C:\chemin\vers\le\depot">
-          <datalist id="project-recent"></datalist>
-          <button type="submit" class="button">Ouvrir</button>
-        </form>
-        <p class="message error" id="project-error" role="alert" hidden></p>
-        <dl class="facts" id="project-facts" hidden></dl>
-      </section>
-
-      <section class="panel">
-        <h2>Nouvelle analyse</h2>
-        <div class="segmented" role="tablist" aria-label="Type d'analyse">
-          <button type="button" role="tab" id="tab-review" aria-selected="true" aria-controls="run-form">Review</button>
-          <button type="button" role="tab" id="tab-clean" aria-selected="false" aria-controls="run-form">Nettoyage</button>
-        </div>
-
-        <form id="run-form" class="stack" role="tabpanel">
-          <fieldset class="stack-tight">
-            <legend>Cible</legend>
-            <div class="radios" id="target-options"></div>
-          </fieldset>
-
-          <div class="field" id="field-base" hidden>
-            <label for="input-base">Référence de base</label>
-            <input id="input-base" class="mono" autocomplete="off" spellcheck="false" placeholder="origin/main">
-          </div>
-          <div class="field" id="field-paths" hidden>
-            <label for="input-paths">Fichiers ou dossiers, relatifs au dépôt</label>
-            <textarea id="input-paths" class="mono" rows="2" spellcheck="false" placeholder="src/api"></textarea>
-          </div>
-          <div class="field-row" id="field-pr" hidden>
-            <div class="field">
-              <label for="input-pr">PR n°</label>
-              <input id="input-pr" type="number" min="1" inputmode="numeric">
-            </div>
-            <div class="field grow">
-              <label for="input-repo">Dépôt GitHub</label>
-              <input id="input-repo" class="mono" autocomplete="off" spellcheck="false" placeholder="owner/nom">
-            </div>
-          </div>
-          <div class="field" id="field-goal" hidden>
-            <label for="input-goal">Objectif <span class="muted">(facultatif)</span></label>
-            <input id="input-goal" autocomplete="off" placeholder="Retirer le code mort">
-          </div>
-
-          <div class="field-row">
-            <div class="field grow">
-              <label for="input-effort">Effort</label>
-              <select id="input-effort"></select>
-            </div>
-            <div class="field grow" id="field-severity">
-              <label for="input-severity">Sévérité min.</label>
-              <select id="input-severity"></select>
-            </div>
-            <div class="field budget">
-              <label for="input-cost">Budget ($)</label>
-              <input id="input-cost" type="number" min="0.01" step="any" value="5">
-            </div>
-          </div>
-
-          <div class="stack-tight" id="clean-options" hidden>
-            <label class="check">
-              <input type="checkbox" id="input-checks">
-              <span>Lancer les vérifications du projet</span>
-            </label>
-            <div class="commands" id="checks-preview" hidden></div>
-            <label class="check">
-              <input type="checkbox" id="input-dry">
-              <span>Aperçu seulement : ne rien conserver</span>
-            </label>
-          </div>
-
-          <p class="message error" id="run-error" role="alert" hidden></p>
-          <button type="submit" class="button primary" id="run-button"></button>
-          <p class="hint" id="run-hint"></p>
-        </form>
-      </section>
-
-      <section class="panel" id="history-panel" hidden>
-        <h2>Cette session</h2>
-        <ul class="history" id="history"></ul>
-      </section>
-    </aside>
-
-    <main class="main" id="main" tabindex="-1"></main>
-  </div>
-
-  <dialog id="credentials-dialog" aria-labelledby="credentials-title">
-    <form id="credentials-form" class="stack">
-      <h2 id="credentials-title">Identifiants</h2>
-      <p class="muted">Les clés saisies ici restent en mémoire le temps de la session, sans jamais être
-        écrites sur le disque. Laisse un champ vide pour conserver sa valeur actuelle.</p>
-      <div class="field">
-        <label for="input-anthropic">Clé API Anthropic <span class="muted" id="state-anthropic"></span></label>
-        <input id="input-anthropic" type="password" autocomplete="off" spellcheck="false">
-      </div>
-      <div class="field">
-        <label for="input-github">Token GitHub <span class="muted" id="state-github"></span></label>
-        <input id="input-github" type="password" autocomplete="off" spellcheck="false">
-      </div>
-      <div class="actions end">
-        <button type="button" class="button quiet" id="credentials-forget">Oublier les clés de session</button>
-        <button type="button" class="button" id="credentials-cancel">Annuler</button>
-        <button type="submit" class="button primary">Enregistrer</button>
-      </div>
-    </form>
-  </dialog>
-
-  <dialog id="confirm-dialog" aria-labelledby="confirm-title">
-    <div class="stack">
-      <h2 id="confirm-title"></h2>
-      <p id="confirm-body"></p>
-      <div class="actions end">
-        <button type="button" class="button" id="confirm-cancel">Annuler</button>
-        <button type="button" class="button primary" id="confirm-ok"></button>
-      </div>
-    </div>
-  </dialog>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>codeguard</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="/vendor/ideotheque/fx.css" />
+    <script src="/vendor/ideotheque/fx.js" defer></script>
+    <script type="module" crossorigin src="/assets/index-BbtSvVHw.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-D8PLkau5.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
 </html>
