@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { usePageTitle } from "./usePageTitle";
 import "./PageHeader.css";
 
 interface PageHeaderProps {
@@ -8,6 +9,7 @@ interface PageHeaderProps {
 }
 
 export function PageHeader({ title, lead, actions }: PageHeaderProps) {
+  usePageTitle(typeof title === "string" ? title : undefined);
   return (
     <header className="page-header">
       <div>
