@@ -1,4 +1,4 @@
-import type { Effort, Project } from "../../api/types";
+import type { Effort, Project, RunOptions } from "../../api/types";
 
 export type TargetMode = "auto" | "staged" | "base" | "paths" | "pr";
 
@@ -22,6 +22,25 @@ export function initialTarget(mode: TargetMode, project: Project | null): Target
     effort: project?.config?.effort ?? "high",
     maxCost: String(project?.config?.max_cost_usd ?? 5),
   };
+}
+
+export function buildOptions(values: TargetValues, project: Project | null): RunOptions {
+  const options: RunOptions = {
+    path: project?.root ?? null,
+    effort: values.effort,
+    max_cost: Number(values.maxCost),
+  };
+  if (values.mode === "base") {
+    options.base = values.base.trim() || (project?.default_base ?? "");
+  }
+  if (values.mode === "paths") {
+    options.paths = values.paths;
+  }
+  if (values.mode === "pr") {
+    options.pr = Number(values.pr);
+    options.repo = values.repo.trim() || (project?.github_repo ?? "");
+  }
+  return options;
 }
 
 export function validateTarget(values: TargetValues): string | null {
