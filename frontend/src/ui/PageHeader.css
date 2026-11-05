@@ -1,0 +1,22 @@
+.page-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.page-header__title {
+  font-family: var(--font-read);
+  font-size: var(--title-md);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.page-header__lead {
+  max-width: var(--measure);
+  margin-top: var(--space-2);
+  color: var(--ink-soft);
+}
