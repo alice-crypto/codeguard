@@ -64,8 +64,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
-      # Remplace OWNER/codeguard par le dépôt où tu publies cet outil.
-      - uses: OWNER/codeguard@main
+      - uses: alice-crypto/codeguard@main
         with:
           anthropic-api-key: ${{ secrets.ANTHROPIC_API_KEY }}
           fail-on: high

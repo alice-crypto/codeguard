@@ -112,10 +112,10 @@ de la table de prix, seul `max_turns` s'applique.
 
 ## GitHub Actions
 
-1. Publie ce dépôt sur GitHub : le fichier `action.yml` en fait une action réutilisable.
-2. Ajoute le secret `ANTHROPIC_API_KEY` au dépôt à relire.
-3. Lance `codeguard init --workflow` dans ce dépôt, puis remplace `OWNER/codeguard` dans
-   `.github/workflows/codeguard.yml`.
+Le fichier `action.yml` fait de ce dépôt une action réutilisable, `alice-crypto/codeguard`.
+
+1. Ajoute le secret `ANTHROPIC_API_KEY` au dépôt à relire.
+2. Lance `codeguard init --workflow` dans ce dépôt, puis commite le fichier créé.
 
 Le workflow utilise `pull_request` et non `pull_request_target` : il ne s'exécute pas sur les PR de
 forks, faute d'accès aux secrets. Il ne clone rien et n'exécute pas le code de la PR. Sa
