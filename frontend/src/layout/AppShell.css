@@ -1,0 +1,40 @@
+.app-shell {
+  display: grid;
+  grid-template-columns: 236px minmax(0, 1fr);
+  min-height: 100vh;
+}
+
+.app-shell__skip {
+  position: absolute;
+  top: -100px;
+  left: var(--space-4);
+  z-index: 20;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.app-shell__skip:focus {
+  top: var(--space-2);
+}
+
+.app-shell__main {
+  padding: var(--space-7) var(--space-6) var(--space-8);
+  outline: none;
+}
+
+.app-shell__content {
+  max-width: 880px;
+  margin-inline: auto;
+}
+
+@media (max-width: 860px) {
+  .app-shell {
+    display: block;
+  }
+
+  .app-shell__main {
+    padding: var(--space-5) var(--space-4) calc(var(--space-8) + var(--space-5));
+  }
+}
