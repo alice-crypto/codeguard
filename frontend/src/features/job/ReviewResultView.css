@@ -1,0 +1,19 @@
+.review-result,
+.review-result__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.review-result__summary {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.review-result__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
