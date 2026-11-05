@@ -1,0 +1,15 @@
+.facts {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--space-1) var(--space-4);
+  font-size: var(--text-sm);
+}
+
+.facts dt {
+  color: var(--ink-soft);
+}
+
+.facts dd {
+  font-family: var(--font-code);
+  overflow-wrap: anywhere;
+}
