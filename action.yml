@@ -1,0 +1,40 @@
+name: codeguard
+description: Review de pull request par Claude, publiée en commentaires.
+inputs:
+  anthropic-api-key:
+    description: Clé API Anthropic
+    required: true
+  github-token:
+    description: Token avec le droit d'écrire sur les pull requests
+    default: ${{ github.token }}
+  fail-on:
+    description: Fait échouer le job à partir de ce niveau (critical, high, medium, low, info)
+    default: ""
+  effort:
+    description: Niveau d'effort du modèle
+    default: high
+  max-cost:
+    description: Budget estimé maximal en dollars
+    default: "5"
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+    - name: Installer codeguard
+      shell: bash
+      run: python -m pip install --quiet "$GITHUB_ACTION_PATH"
+    - name: Lancer la review
+      shell: bash
+      env:
+        ANTHROPIC_API_KEY: ${{ inputs.anthropic-api-key }}
+        GITHUB_TOKEN: ${{ inputs.github-token }}
+        PR_NUMBER: ${{ github.event.pull_request.number }}
+        FAIL_ON: ${{ inputs.fail-on }}
+        EFFORT: ${{ inputs.effort }}
+        MAX_COST: ${{ inputs.max-cost }}
+      run: |
+        args=(review --pr "$PR_NUMBER" --post --effort "$EFFORT" --max-cost "$MAX_COST")
+        if [ -n "$FAIL_ON" ]; then args+=(--fail-on "$FAIL_ON"); fi
+        codeguard "${args[@]}"

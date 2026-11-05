@@ -1,0 +1,35 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "codeguard"
+version = "0.1.0"
+description = "Agent de review et de nettoyage de code, en local et sur GitHub, propulsé par Claude."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = ["anthropic>=2.4,<3", "pydantic>=2"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.6"]
+
+[project.scripts]
+codeguard = "codeguard.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/codeguard"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.ruff]
+line-length = 100
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+
+[tool.ruff.lint.per-file-ignores]
+# The workflow template holds a long YAML expression.
+"src/codeguard/cli.py" = ["E501"]
