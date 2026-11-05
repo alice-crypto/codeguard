@@ -1,0 +1,19 @@
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-7) var(--space-4);
+  text-align: center;
+}
+
+.empty__title {
+  font-family: var(--font-read);
+  font-size: var(--title-sm);
+  font-weight: 500;
+}
+
+.empty__text {
+  max-width: 44ch;
+  color: var(--ink-soft);
+}
