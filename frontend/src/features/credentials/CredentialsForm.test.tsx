@@ -37,9 +37,7 @@ it("propose d'oublier uniquement les clés de session", async () => {
   });
   renderWithProviders(<CredentialsForm />);
   await userEvent.click(await screen.findByRole("button", { name: "Oublier les clés de session" }));
-  await waitFor(() =>
-    expect(calls.at(-1)?.body).toEqual({ anthropic_key: "", github_token: "" }),
-  );
+  await waitFor(() => expect(calls.at(-1)?.body).toEqual({ anthropic_key: "", github_token: "" }));
 });
 
 it("ne propose pas d'oublier les clés d'environnement", async () => {

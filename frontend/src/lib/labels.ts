@@ -1,10 +1,4 @@
-import type {
-  CleanChangeKind,
-  Effort,
-  FindingCategory,
-  JobStatus,
-  Severity,
-} from "../api/types";
+import type { CleanChangeKind, Effort, FindingCategory, JobStatus, Severity } from "../api/types";
 
 export const severityLabels: Record<Severity, string> = {
   critical: "Critique",

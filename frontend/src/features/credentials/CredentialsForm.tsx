@@ -65,7 +65,11 @@ export function CredentialsForm() {
       </Field>
       {save.error instanceof ApiError && <Banner tone="error">{save.error.message}</Banner>}
       <div className="credentials-form__actions">
-        <Button type="submit" variant="primary" disabled={save.isPending || (!anthropic && !github)}>
+        <Button
+          type="submit"
+          variant="primary"
+          disabled={save.isPending || (!anthropic && !github)}
+        >
           Enregistrer
         </Button>
         {hasSessionKey && (

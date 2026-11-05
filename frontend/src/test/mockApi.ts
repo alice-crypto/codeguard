@@ -23,7 +23,8 @@ export function mockApi(routes: Record<string, Handler>) {
         });
       }
       const handler = routes[route];
-      const result = typeof handler === "function" ? (handler as (b: unknown) => unknown)(body) : handler;
+      const result =
+        typeof handler === "function" ? (handler as (b: unknown) => unknown)(body) : handler;
       if (result instanceof MockError) {
         return new Response(JSON.stringify({ error: result.message }), { status: result.status });
       }

@@ -112,20 +112,10 @@ export interface ReviewResult {
 }
 
 export type CleanStatus =
-  | "committed"
-  | "dry_run"
-  | "no_change"
-  | "checks_failed"
-  | "baseline_failed";
+  "committed" | "dry_run" | "no_change" | "checks_failed" | "baseline_failed";
 
 export type CleanChangeKind =
-  | "dead_code"
-  | "duplication"
-  | "simplification"
-  | "naming"
-  | "comments"
-  | "imports"
-  | "other";
+  "dead_code" | "duplication" | "simplification" | "naming" | "comments" | "imports" | "other";
 
 export interface CleanChange {
   path: string;

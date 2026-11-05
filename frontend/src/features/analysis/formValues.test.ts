@@ -43,7 +43,10 @@ describe("buildOptions", () => {
   });
 
   it("n'envoie pas les champs des autres modes", () => {
-    const options = buildOptions({ ...base, mode: "auto", base: "x", paths: "y", pr: "1" }, project);
+    const options = buildOptions(
+      { ...base, mode: "auto", base: "x", paths: "y", pr: "1" },
+      project,
+    );
     expect(options).toEqual({ path: "/depots/app", effort: "high", max_cost: 5 });
   });
 

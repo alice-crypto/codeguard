@@ -59,7 +59,9 @@ it("montre le résultat d'une analyse terminée", async () => {
     },
   });
   expect(await screen.findByText("Tout va bien")).toBeInTheDocument();
-  expect(screen.getByRole("heading", { name: /Review : changements en cours/ })).toBeInTheDocument();
+  expect(
+    screen.getByRole("heading", { name: /Review : changements en cours/ }),
+  ).toBeInTheDocument();
   expect(screen.getByText(/30 s/)).toBeInTheDocument();
 });
 

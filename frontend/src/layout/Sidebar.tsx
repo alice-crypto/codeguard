@@ -19,7 +19,12 @@ export function Sidebar() {
         <span className="sidebar__mark" aria-hidden="true" />
         codeguard
       </NavLink>
-      <nav ref={nav} className="sidebar__nav" data-fx="hover-pill" aria-label="Navigation principale">
+      <nav
+        ref={nav}
+        className="sidebar__nav"
+        data-fx="hover-pill"
+        aria-label="Navigation principale"
+      >
         {LINKS.map((link) => (
           <NavLink key={link.to} to={link.to} end={link.end} className="sidebar__link">
             <Icon name={link.icon} />

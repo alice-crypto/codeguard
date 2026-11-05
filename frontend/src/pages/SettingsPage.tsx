@@ -20,9 +20,7 @@ export function SettingsPage() {
       <Card title="Identifiants">
         <CredentialsForm />
       </Card>
-      {status.data && (
-        <p className="settings-version">Serveur codeguard {status.data.version}</p>
-      )}
+      {status.data && <p className="settings-version">Serveur codeguard {status.data.version}</p>}
     </div>
   );
 }

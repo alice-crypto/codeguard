@@ -34,9 +34,7 @@ export function ReviewForm() {
   const navigate = useNavigate();
   const start = useStartReview();
   const [values, setValues] = useState<TargetValues>(() => initialTarget("auto", project));
-  const [minSeverity, setMinSeverity] = useState<Severity>(
-    project?.config?.min_severity ?? "low",
-  );
+  const [minSeverity, setMinSeverity] = useState<Severity>(project?.config?.min_severity ?? "low");
   const [invalid, setInvalid] = useState<string | null>(null);
   const update = (patch: Partial<TargetValues>) => setValues((old) => ({ ...old, ...patch }));
 

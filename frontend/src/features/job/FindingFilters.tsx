@@ -12,9 +12,11 @@ interface FindingFiltersProps {
 export function FindingFilters({ findings, active, onChange }: FindingFiltersProps) {
   const entries: Array<[Severity | null, string, number]> = [
     [null, "Toutes", findings.length],
-    ...[...countBySeverity(findings)].map(
-      ([severity, count]): [Severity, string, number] => [severity, severityLabels[severity], count],
-    ),
+    ...[...countBySeverity(findings)].map(([severity, count]): [Severity, string, number] => [
+      severity,
+      severityLabels[severity],
+      count,
+    ]),
   ];
   return (
     <div className="finding-filters" role="group" aria-label="Filtrer par sévérité">

@@ -12,7 +12,12 @@ export function ExportLinks({ jobId }: { jobId: string }) {
   return (
     <>
       {FORMATS.map(([format, label]) => (
-        <a key={format} className={buttonClass("secondary", true)} href={exportUrl(jobId, format)} download>
+        <a
+          key={format}
+          className={buttonClass("secondary", true)}
+          href={exportUrl(jobId, format)}
+          download
+        >
           <Icon name="download" size={14} />
           {label}
         </a>

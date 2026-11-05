@@ -19,10 +19,7 @@ export function RunningPanel({ job }: { job: JobDetail }) {
           <LiveDot>En cours</LiveDot>
           <p>L'agent lit le code et vérifie ce qu'il avance. Tu peux quitter cette page.</p>
         </div>
-        <Button
-          disabled={job.cancel_requested || cancel.isPending}
-          onClick={() => cancel.mutate()}
-        >
+        <Button disabled={job.cancel_requested || cancel.isPending} onClick={() => cancel.mutate()}>
           <Icon name="stop" size={16} />
           {job.cancel_requested ? "Arrêt demandé…" : "Arrêter"}
         </Button>

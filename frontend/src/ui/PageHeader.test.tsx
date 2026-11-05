@@ -7,7 +7,9 @@ afterEach(() => {
 });
 
 it("affiche le titre, l'introduction et les actions", () => {
-  render(<PageHeader title="Analyses" lead="Celles de la session" actions={<button>Agir</button>} />);
+  render(
+    <PageHeader title="Analyses" lead="Celles de la session" actions={<button>Agir</button>} />,
+  );
   expect(screen.getByRole("heading", { level: 1, name: "Analyses" })).toBeInTheDocument();
   expect(screen.getByText("Celles de la session")).toBeInTheDocument();
   expect(screen.getByRole("button", { name: "Agir" })).toBeInTheDocument();

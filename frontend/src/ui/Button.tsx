@@ -12,12 +12,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 export function buttonClass(variant: ButtonVariant, small = false, wide = false): string {
-  return cx(
-    "button",
-    `button--${variant}`,
-    small && "button--small",
-    wide && "button--wide",
-  );
+  return cx("button", `button--${variant}`, small && "button--small", wide && "button--wide");
 }
 
 export function Button({
