@@ -1,0 +1,18 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  min-width: 0;
+  padding: var(--space-5);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.card__title {
+  font-family: var(--font-read);
+  font-size: var(--title-sm);
+  font-weight: 500;
+  line-height: 1.3;
+}
