@@ -1,0 +1,6 @@
+.live-dot {
+  --fx-live: var(--accent);
+  color: var(--accent);
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
