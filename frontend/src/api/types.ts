@@ -70,5 +70,46 @@ export interface JobSummary {
   cancel_requested: boolean;
 }
 
+export interface Usage {
+  input_tokens: number;
+  output_tokens: number;
+  cache_write_tokens: number;
+  cache_read_tokens: number;
+}
+
+export type FindingCategory =
+  | "bug"
+  | "security"
+  | "performance"
+  | "concurrency"
+  | "maintainability"
+  | "dead_code"
+  | "tests"
+  | "style";
+
+export interface Finding {
+  path: string;
+  line: number;
+  end_line: number;
+  severity: Severity;
+  category: FindingCategory;
+  confidence: "high" | "medium" | "low";
+  title: string;
+  explanation: string;
+  suggested_code: string;
+}
+
+export interface ReviewResult {
+  target: string;
+  summary: string;
+  partial: boolean;
+  findings: Finding[];
+  dropped: string[];
+  posted_url: string | null;
+  model: string;
+  usage: Usage;
+  estimated_cost_usd: number | null;
+}
+
 export type Effort = "low" | "medium" | "high" | "xhigh" | "max";
 export type Severity = "critical" | "high" | "medium" | "low" | "info";
