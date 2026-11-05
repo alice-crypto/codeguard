@@ -4,6 +4,8 @@
   --surface: light-dark(#fbfaf5, #1a2220);
   --surface-2: light-dark(#efece1, #222c29);
   --line: light-dark(#dfdbcd, #2f3b37);
+  --ink: light-dark(#24312d, #e6e5db);
+  --ink-soft: light-dark(#56645e, #a9b2ab);
 }
 
 :root[data-theme="light"] {
