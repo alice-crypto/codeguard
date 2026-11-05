@@ -16,6 +16,12 @@
   --low: light-dark(#3a6a8c, #8fbedd);
   --info: light-dark(#56645e, #a9b2ab);
   --ok: light-dark(#2e7d56, #7ccba0);
+  --add-bg: light-dark(#e4f1e8, #17301f);
+  --add-ink: light-dark(#1f5135, #a9e0bd);
+  --del-bg: light-dark(#f7e8e3, #351d1a);
+  --del-ink: light-dark(#7a2d24, #f2b8ae);
+  --hunk-bg: light-dark(#e6ebe9, #212b2d);
+  --hunk-ink: light-dark(#46605e, #a5bcbd);
 }
 
 :root[data-theme="light"] {
